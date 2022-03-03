@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Red_Social_Medicos:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Red_Social_Medicos</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Red_Social_Medicos-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Red_Social_Medicos:war exploded" />
+    </root>
+  </artifact>
+</component>
