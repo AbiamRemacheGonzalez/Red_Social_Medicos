@@ -13,6 +13,7 @@
 </head>
 <body>
 Hola, bienvenido <%= loadedUser.getUserName() %>
+
 <a href="login.jsp">Cerrar Sesión</a>
 </body>
 </html>
