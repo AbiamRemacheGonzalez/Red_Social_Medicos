@@ -15,7 +15,7 @@
 .navMenu a {
     color: #f6f4e6;
     text-decoration: none;
-    font-size: 1.2em;
+    font-size: 1.5em;
     text-transform: uppercase;
     font-weight: 500;
     display: inline-block;
@@ -72,10 +72,6 @@
     opacity: 1;
 }
 
-.text-small {
-    font-size: 0.9rem !important;
-}
-
 
 body {
     font-family: "Montserrat", sans-serif;
@@ -92,16 +88,19 @@ body {
     left: 0%;
 }
 table {
-    margin-left: 45px;
-    margin-right: 45px;
+    margin-left: 300px;
+    margin-right: 200px;
+    alignment: center;
     font-size:30px;
-    width: 90%;
+    width: 50%;
 }
 th, td {
     width: 10%;
     box-sizing: border-box;
     text-align: center;
     vertical-align: center;
-    border: 1px solid #000;
+    border: 1px solid #f0f0f5;
+    background-color: #808de1;
+    size: 500px 500px ;
     border-collapse: collapse;
 }

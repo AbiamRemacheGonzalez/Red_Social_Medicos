@@ -1,13 +1,8 @@
-<%@ page import="com.example.red_social_medicos.Model.User" %><%--
-  Created by IntelliJ IDEA.
-  User: equipo
-  Date: 04/03/2022
-  Time: 0:50
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.example.red_social_medicos.Model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% User loadedUser = (User) session.getAttribute("loadedUser");%>
 <% String communities_html = (String) session.getAttribute("communities_html");%>
+
 <html>
 <head>
     <title>Communities</title>
@@ -17,7 +12,7 @@
 <header>
 <nav class="navMenu">
     <a href="#">Home</a>
-    <a href="#">Posts</a>
+    <a href="#">Communities</a>
     <a href="#">Profile</a>
     <a href="#">LogOut</a>
     <div class="dot"></div>

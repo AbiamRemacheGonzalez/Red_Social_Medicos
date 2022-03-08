@@ -6,5 +6,6 @@
                 <td><xsl:value-of select="screen/name"></xsl:value-of></td>
             </tr>
         </table>
+        <br></br>
     </xsl:template>
 </xsl:stylesheet>

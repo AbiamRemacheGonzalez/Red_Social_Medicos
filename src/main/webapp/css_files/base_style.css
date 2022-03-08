@@ -1,12 +1,11 @@
 /*
 *
 * ==========================================
-* CUSTOM UTIL CLASSES
+* HEADER NAVIGATOR
 * ==========================================
 *
 */
-/*@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
-*/
+
 * {
     margin: 0;
     padding: 0;
@@ -80,20 +79,13 @@
     transition: all 0.2s ease-in-out;
     opacity: 1;
 }
-
-
-
-
 /*
 *
 * ==========================================
-* FOR DEMO PURPOSES
+* BODY ELEMENTS
 * ==========================================
 *
 */
-.text-small {
-    font-size: 0.9rem !important;
-}
 
 
 body {
@@ -125,3 +117,11 @@ th, td {
     border: 1px solid #000;
     border-collapse: collapse;
 }
+
+/*
+*
+* ==========================================
+* FOOTER ELEMENTS
+* ==========================================
+*
+*/
