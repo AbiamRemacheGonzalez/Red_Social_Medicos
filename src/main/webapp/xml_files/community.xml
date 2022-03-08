@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Community>
-    <communityId>1</communityId>
-    <communityName>ENFERMERIA</communityName>
-    <communityDescription>DESCRIPCION</communityDescription>
+    <communityId>6</communityId>
+    <communityName>Nutrición</communityName>
+    <communityDescription>La nutrición es el proceso biológico en el que los organismos asimilan los alimentos sólidos y líquidos necesarios para el funcionamiento, el crecimiento y el mantenimiento de sus funciones vitales</communityDescription>
 </Community>

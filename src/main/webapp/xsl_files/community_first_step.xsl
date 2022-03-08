@@ -4,12 +4,12 @@
         <screen><xsl:apply-templates/></screen>
     </xsl:template>
     <xsl:template match="Community/communityId">
-        <field label="communityId"><xsl:apply-templates/></field>
+        <id><xsl:apply-templates/></id>
     </xsl:template>
     <xsl:template match="Community/communityName">
-        <field label="communityName"><xsl:apply-templates/></field>
+        <name><xsl:apply-templates/></name>
     </xsl:template>
     <xsl:template match="Community/communityDescription">
-        <field label="communityDescription"><xsl:apply-templates/></field>
+        <description><xsl:apply-templates/></description>
     </xsl:template>
 </xsl:stylesheet>
