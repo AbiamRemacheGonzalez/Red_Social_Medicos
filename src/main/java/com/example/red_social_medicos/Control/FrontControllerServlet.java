@@ -23,8 +23,9 @@ public class FrontControllerServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) {
         FrontCommand command = getCommand(request);
-        //request.setAttribute("info",request.getParameter("info"));
-        command.init(this.getServletContext(),request,response);
+        response.setContentType("text/html");
+        HttpSession session = request.getSession(true);
+        command.init(this.getServletContext(),request,response,session);
         try {
             command.process();
         } catch (JAXBException e) {

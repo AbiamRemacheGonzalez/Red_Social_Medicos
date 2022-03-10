@@ -6,6 +6,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -38,6 +39,8 @@ public class Community {
         this.communityId = communityId;
         this.communityName = communityName;
         this.communityDescription = communityDescription;
+        this.communityMembers = new ArrayList<>();
+        this.communityPosts = new ArrayList<>();
     }
 
     public int getCommunityId() {

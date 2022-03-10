@@ -3,7 +3,7 @@
     <xsl:template match="/">
         <table>
             <tr>
-                <td><xsl:value-of select="screen/name"></xsl:value-of></td>
+                <td><h2><xsl:value-of select="screen/name"></xsl:value-of></h2></td>
             </tr>
         </table>
         <br></br>

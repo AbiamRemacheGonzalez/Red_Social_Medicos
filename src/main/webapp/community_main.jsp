@@ -1,34 +1,37 @@
 <%@ page import="com.example.red_social_medicos.Model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.red_social_medicos.Model.Post" %>
-<%@ page import="com.example.red_social_medicos.Persistence.DatabaseCommunityLoader" %>
 <%@ page import="com.example.red_social_medicos.Model.Community" %>
+<%@ page import="com.example.red_social_medicos.Persistence.DatabaseCommunityLoader" %>
 <%@ page import="com.example.red_social_medicos.Persistence.DatabaseUserLoader" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% User loadedUser = (User) session.getAttribute("loadedUser");%>
+<% Community community= (Community) session.getAttribute("community");%>
+<% String community_html= (String) session.getAttribute("community_html");%>
 <% List<String> posts_html = (List<String>) session.getAttribute("posts_html");%>
 <% List<Post> posts = (List<Post>) session.getAttribute("posts");%>
-
 <html>
 <head>
-    <title>Home</title>
+    <title>Explore</title>
     <link rel="stylesheet" type="text/css" href="css_files/base_style.css" media="screen"/>
 </head>
 <body>
 <header>
-<nav class="navMenu">
-    <%
-        out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
-    %>
-    <a href="#">Explore</a>
-    <a href="#">Profile</a>
-    <a href="index.jsp">LogOut</a>
-    <div class="dot"></div>
-</nav>
+    <nav class="navMenu">
+        <%
+            out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
+        %>
+        <a href="communities_main_page.jsp">Explore</a>
+        <a href="#">Profile</a>
+        <a href="index.jsp">LogOut</a>
+        <div class="dot"></div>
+    </nav>
 </header>
 
 <div class="container">
-    <p style="padding-top:4px;color:#4E4F50;font-size:12px;text-align: center">In home page you can see the posts of the communities you are joined.</p><br>
+    <p style="padding-top:4px;color:#4E4F50;font-size:12px;text-align: center">In this page you can see the posts of the <%=community.getCommunityName()%> community</p><br>
+    <%=community_html%>
+    <br>
     <%
         DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();
         DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
@@ -67,8 +70,9 @@
                     "</tr></div>"+
                     "</table><br>");
         }
-     %>
+    %>
 </div>
+
 <footer id="mobile-footer">
     <div id="mobile-menu">
         <div id="mobile-footer-container">

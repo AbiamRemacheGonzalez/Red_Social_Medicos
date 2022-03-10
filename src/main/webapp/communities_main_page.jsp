@@ -1,23 +1,31 @@
 <%--
   Created by IntelliJ IDEA.
   User: equipo
-  Date: 04/03/2022
-  Time: 17:06
+  Date: 10/03/2022
+  Time: 0:48
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <title>Explore</title>
     <link rel="stylesheet" type="text/css" href="css_files/base_style.css" media="screen"/>
-    <title>Login Error</title>
 </head>
 <body>
+<header>
+    <nav class="navMenu">
+        <a href="main_page.jsp">Home</a>
+        <a href="communities_main_page.jsp">Explore</a>
+        <a href="#">Profile</a>
+        <a href="index.jsp">LogOut</a>
+        <div class="dot"></div>
+    </nav>
+</header>
+
 <div class="container">
-<table><tr><td>
-<h1>User not exist</h1>
-<a href="index.jsp">Try Again</a>
-</td></tr></table>
+
 </div>
+
 <footer id="mobile-footer">
     <div id="mobile-menu">
         <div id="mobile-footer-container">

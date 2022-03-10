@@ -12,20 +12,14 @@
         <h2 class="animation a1">Welcome Back</h2>
         <h4 class="animation a2">Log in to your account using email and password</h4>
     </div>
-    <div class="form">
-        <input type="email" class="form-field animation a3" placeholder="Email Address">
-        <input type="password" class="form-field animation a4" placeholder="Password">
-        <p class="animation a5"><a href="#">Forgot Password</a></p>
-        <button class="animation a6">LOGIN</button>
-    </div>
+    <form class ="form" action="FrontControllerServlet">
+        <input type="hidden" name="command" value="LoginCommand">
+        <input type="text" name="userEmail" class="form-field animation a3" placeholder="Email Address">
+        <input type="password" name="userPassword" class="form-field animation a4" placeholder="Password">
+        <input type="submit" name="Sign in" class="animation a6">
+    </form>
 </div>
 <div class="right"></div>
 </div>
-<form action="FrontControllerServlet">
-    <input type="hidden" name="command" value="LoginCommand">
-    <input type="text" name="userEmail" placeholder="Email Address">
-    <input type="password" name="userPassword" placeholder="Password">
-    <input type="submit" name="Sign in">
-</form>
 </body>
 </html>

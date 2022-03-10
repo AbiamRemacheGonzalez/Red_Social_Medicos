@@ -60,4 +60,46 @@ public class DatabaseCommunityLoader implements CommunityLoader {
         }
         return communities;
     }
+
+    public List<Community> getUserCommunities(int userId){
+        List<Community> communities = new ArrayList<>();
+        List<Community> allCommunities = getAllCommunities();
+        for (Community community: allCommunities) {
+            if(userIsMember(community.getCommunityId(),userId)){
+                communities.add(community);
+            }
+        }
+        return communities;
+    }
+
+    public boolean userIsMember(int communityId, int userId) {
+        try {
+            String sql = "SELECT count(*) FROM members WHERE userId='"+userId+"' AND communityId='"+communityId+"'";
+            statement.execute(sql);
+            ResultSet r = statement.getResultSet();
+            int cuenta=0;
+            while(r.next()){
+                cuenta = Integer.parseInt(r.getString("count(*)"));
+            }
+            if(cuenta==1)return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public int numberOfMembers(int communityId){
+        int cuenta=0;
+        try {
+            String sql = "SELECT count(*) FROM members WHERE communityId='"+communityId+"'";
+            statement.execute(sql);
+            ResultSet r = statement.getResultSet();
+            while(r.next()){
+                cuenta = Integer.parseInt(r.getString("count(*)"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cuenta;
+    }
 }

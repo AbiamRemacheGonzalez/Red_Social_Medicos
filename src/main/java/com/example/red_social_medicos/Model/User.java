@@ -53,6 +53,8 @@ public class User {
         return userEmail;
     }
 
+    public String getUserPassword() {return userPassword;}
+
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
