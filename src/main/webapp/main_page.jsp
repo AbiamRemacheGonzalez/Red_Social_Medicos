@@ -20,7 +20,9 @@
     <%
         out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
     %>
-    <a href="#">Explore</a>
+    <%
+        out.println("<a href=\"FrontControllerServlet?command=ExploreCommunitiesCommand\">Explore</a>");
+    %>
     <a href="#">Profile</a>
     <a href="index.jsp">LogOut</a>
     <div class="dot"></div>
@@ -28,7 +30,8 @@
 </header>
 
 <div class="container">
-    <p style="padding-top:4px;color:#4E4F50;font-size:12px;text-align: center">In home page you can see the posts of the communities you are joined.</p><br>
+    <p><h2 style="color:#a6a3a3;">Home</h2></p>
+    <p style="padding-top:4px;color:#4E4F50;font-size:14px">In home page you can see the posts of the communities you are joined.</p><br>
     <%
         DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();
         DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();

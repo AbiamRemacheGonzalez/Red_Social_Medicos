@@ -16,7 +16,7 @@ public class LoginCommand extends FrontCommand{
     private DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
     private DatabasePostLoader databasePostLoader = new DatabasePostLoader();
     private final String first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_first_step.xsl";
-    private final String second_step_xsl_file_path="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_second_step.xsl";;
+    private final String second_step_xsl_file_path="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_second_step.xsl";
 
 
     @Override

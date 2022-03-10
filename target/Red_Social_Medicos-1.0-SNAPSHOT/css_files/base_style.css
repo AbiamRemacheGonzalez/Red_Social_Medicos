@@ -153,7 +153,21 @@ table:hover{
 .commmentSubmit:hover {
     background-color: #3B3B3C;
 }
-
+.joinButton{
+    color:#3D393A;
+    font-size: 12px;
+    background-color: #C8CBCD;
+    border-radius: 40px;
+    padding: 8px 16px;
+}
+.leaveButton{
+    color:#C8CBCD;
+    font-size: 12px;
+    background-color: #3D393A;
+    border-color: #C8CBCD;
+    border-radius: 40px;
+    padding: 8px 16px;
+}
 /*
 *
 * ==========================================

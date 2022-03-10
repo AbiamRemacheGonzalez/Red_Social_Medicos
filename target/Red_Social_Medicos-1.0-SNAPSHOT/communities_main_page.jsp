@@ -1,4 +1,4 @@
-<%@ page import="com.example.red_social_medicos.Model.User" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: equipo
   Date: 10/03/2022
@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% User loadedUser = (User) session.getAttribute("loadedUser");%>
 <html>
 <head>
     <title>Explore</title>
@@ -15,12 +14,8 @@
 <body>
 <header>
     <nav class="navMenu">
-        <%
-            out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
-        %>
-        <%
-            out.println("<a href=\"FrontControllerServlet?command=ExploreCommunitiesCommand\">Explore</a>");
-        %>
+        <a href="main_page.jsp">Home</a>
+        <a href="communities_main_page.jsp">Explore</a>
         <a href="#">Profile</a>
         <a href="index.jsp">LogOut</a>
         <div class="dot"></div>

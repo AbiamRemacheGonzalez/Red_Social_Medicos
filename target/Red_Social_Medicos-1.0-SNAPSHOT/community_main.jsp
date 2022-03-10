@@ -1,37 +1,51 @@
 <%@ page import="com.example.red_social_medicos.Model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.red_social_medicos.Model.Post" %>
-<%@ page import="com.example.red_social_medicos.Persistence.DatabaseCommunityLoader" %>
 <%@ page import="com.example.red_social_medicos.Model.Community" %>
+<%@ page import="com.example.red_social_medicos.Persistence.DatabaseCommunityLoader" %>
 <%@ page import="com.example.red_social_medicos.Persistence.DatabaseUserLoader" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% User loadedUser = (User) session.getAttribute("loadedUser");%>
+<% Community community= (Community) session.getAttribute("community");%>
+<% DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();%>
+<% String community_html= (String) session.getAttribute("community_html");%>
 <% List<String> posts_html = (List<String>) session.getAttribute("posts_html");%>
 <% List<Post> posts = (List<Post>) session.getAttribute("posts");%>
-
 <html>
 <head>
-    <title>Home</title>
+    <title>Explore</title>
     <link rel="stylesheet" type="text/css" href="css_files/base_style.css" media="screen"/>
 </head>
 <body>
 <header>
-<nav class="navMenu">
-    <%
-        out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
-    %>
-    <a href="#">Explore</a>
-    <a href="#">Profile</a>
-    <a href="index.jsp">LogOut</a>
-    <div class="dot"></div>
-</nav>
+    <nav class="navMenu">
+        <%
+            out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
+        %>
+        <a href="communities_main_page.jsp">Explore</a>
+        <a href="#">Profile</a>
+        <a href="index.jsp">LogOut</a>
+        <div class="dot"></div>
+    </nav>
 </header>
 
 <div class="container">
-    <p><h2 style="color:#a6a3a3;">Home</h2></p>
-    <p style="padding-top:4px;color:#4E4F50;font-size:14px">In home page you can see the posts of the communities you are joined.</p><br>
+    <%=community_html%><br>
     <%
-        DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();
+        String command = "JoinCommunityCommand";
+        String button = "<input type=\"submit\" class=\"joinButton\" name=\"Join\" value=\"Join\"></input>\n";
+        if(databaseCommunityLoader.userIsMember(community.getCommunityId(),loadedUser.getUserId())){
+            command = "LeaveCommunityCommand";
+            button = "<input type=\"submit\" class=\"leaveButton\" name=\"Leave\" value=\"Leave\"></input>\n";
+        }
+        out.println("<form action=\"FrontControllerServlet\">\n" +
+                "           <input type=\"hidden\" name=\"command\" value='"+command+"'></input>\n" +
+                "           <input type=\"hidden\" name=\"communityId\" value='" +community.getCommunityId() + "'></input>\n"+
+                            button +
+                "       </form>\n");
+    %><br>
+
+    <%
         DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
         for (int i = 0; i < posts.size(); i++) {
             Community currentCommunity = databaseCommunityLoader.getCommunity(posts.get(i).getCommunityId());
@@ -68,8 +82,9 @@
                     "</tr></div>"+
                     "</table><br>");
         }
-     %>
+    %>
 </div>
+
 <footer id="mobile-footer">
     <div id="mobile-menu">
         <div id="mobile-footer-container">
