@@ -48,6 +48,7 @@ public class Post {
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.creationDate = LocalDateTime.now();
+        this.postEvaluation = 0;
     }
 
     public Post(int postId, int communityId, int userId, String postTitle, String postDescription, LocalDateTime creationDate, int postEvaluation) {

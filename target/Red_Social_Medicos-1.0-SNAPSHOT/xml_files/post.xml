@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Post>
-    <postId>5</postId>
-    <communityId>2</communityId>
-    <userId>4</userId>
-    <postTitle>Grado en Biomedicina</postTitle>
-    <postDescription>La biomedicina es la ciencia que combina conocimientos de biología y de medicina para investigar el funcionamiento y comportamiento del cuerpo humano desde un enfoque multidisciplinar.
-
-Actualmente, nuestra sociedad demanda expertos en el ámbito de la salud que sean capaces de estudiar las bases moleculares del organismo para comprender qué ocurre cuando enferma y desarrollar nuevas técnicas para el diagnóstico y el tratamiento de las enfermedades.</postDescription>
+    <postId>8</postId>
+    <communityId>4</communityId>
+    <userId>1</userId>
+    <postTitle>Ojos resecos</postTitle>
+    <postDescription>Los ojos secos son consecuencia del uso excesivo de sal en la dieta. Puedes poner esto a prueba, especialmente cuando te levantes en la noche para ir al baño. Si tus ojos están secos, toma unos 350 ml de agua. Fíjate si tus ojos se alivian inmediatamente. Si es así, entonces reduce la sal en tu dieta y mantente hidratado.</postDescription>
     <creationDate/>
     <postEvaluation>0</postEvaluation>
 </Post>

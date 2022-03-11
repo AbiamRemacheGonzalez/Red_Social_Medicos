@@ -20,7 +20,9 @@
     <%
         out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
     %>
-    <a href="#">Explore</a>
+    <%
+        out.println("<a href=\"FrontControllerServlet?command=ExploreCommunitiesCommand\">Explore</a>");
+    %>
     <a href="#">Profile</a>
     <a href="index.jsp">LogOut</a>
     <div class="dot"></div>

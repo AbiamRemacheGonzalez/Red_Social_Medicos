@@ -22,7 +22,9 @@
         <%
             out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
         %>
-        <a href="communities_main_page.jsp">Explore</a>
+        <%
+            out.println("<a href=\"FrontControllerServlet?command=ExploreCommunitiesCommand\">Explore</a>");
+        %>
         <a href="#">Profile</a>
         <a href="index.jsp">LogOut</a>
         <div class="dot"></div>
@@ -33,17 +35,16 @@
     <%=community_html%><br>
     <%
         String command = "JoinCommunityCommand";
-        String button = "<input type=\"submit\" class=\"joinButton\" name=\"Join\" value=\"Join\"></input>\n";
+        String name = "Join";
+        String clas = "joinButton";
         if(databaseCommunityLoader.userIsMember(community.getCommunityId(),loadedUser.getUserId())){
             command = "LeaveCommunityCommand";
-            button = "<input type=\"submit\" class=\"leaveButton\" name=\"Leave\" value=\"Leave\"></input>\n";
+            name = "Leave";
+            clas = "leaveButton";
+            out.println("<a href=\"add_post_page.jsp\" class=\""+clas+"\">Create Post</a>");
         }
-        out.println("<form action=\"FrontControllerServlet\">\n" +
-                "           <input type=\"hidden\" name=\"command\" value='"+command+"'></input>\n" +
-                "           <input type=\"hidden\" name=\"communityId\" value='" +community.getCommunityId() + "'></input>\n"+
-                            button +
-                "       </form>\n");
-    %><br>
+        out.println("<a href=\"FrontControllerServlet?command="+command+"&communityId="+community.getCommunityId()+"\" class=\""+clas+"\">"+name+"</a><br><br><br>");
+    %>
 
     <%
         DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
