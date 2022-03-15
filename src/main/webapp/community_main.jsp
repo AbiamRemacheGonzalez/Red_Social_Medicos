@@ -3,7 +3,6 @@
 <%@ page import="com.example.red_social_medicos.Model.Post" %>
 <%@ page import="com.example.red_social_medicos.Model.Community" %>
 <%@ page import="com.example.red_social_medicos.Persistence.DatabaseCommunityLoader" %>
-<%@ page import="com.example.red_social_medicos.Persistence.DatabaseUserLoader" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% User loadedUser = (User) session.getAttribute("loadedUser");%>
 <% Community community= (Community) session.getAttribute("community");%>
@@ -11,6 +10,8 @@
 <% String community_html= (String) session.getAttribute("community_html");%>
 <% List<String> posts_html = (List<String>) session.getAttribute("posts_html");%>
 <% List<Post> posts = (List<Post>) session.getAttribute("posts");%>
+<% List<Community> communitiesPosts = (List<Community>) session.getAttribute("communitiesPosts");%>
+<% List<User> usersPosts = (List<User>) session.getAttribute("usersPosts");%>
 <html>
 <head>
     <title>Explore</title>
@@ -47,10 +48,9 @@
     %>
 
     <%
-        DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
         for (int i = 0; i < posts.size(); i++) {
-            Community currentCommunity = databaseCommunityLoader.getCommunity(posts.get(i).getCommunityId());
-            User currentUser =  databaseUserLoader.loadUser(posts.get(i).getUserId());
+            Community currentCommunity = communitiesPosts.get(i);
+            User currentUser = usersPosts.get(i);
             String htmlPostTransformation = posts_html.get(i);
             out.println("<table>" +
                     "<tr>\n" +

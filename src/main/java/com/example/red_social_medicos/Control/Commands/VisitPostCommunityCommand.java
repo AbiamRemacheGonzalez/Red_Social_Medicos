@@ -6,6 +6,7 @@ import com.example.red_social_medicos.Model.Post;
 import com.example.red_social_medicos.Model.User;
 import com.example.red_social_medicos.Persistence.DatabaseCommunityLoader;
 import com.example.red_social_medicos.Persistence.DatabasePostLoader;
+import com.example.red_social_medicos.Persistence.DatabaseUserLoader;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import java.util.List;
 public class VisitPostCommunityCommand extends FrontCommand{
     DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();
     DatabasePostLoader databasePostLoader = new DatabasePostLoader();
+    DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
     private final String first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\community_first_step.xsl";
     private final String second_step_xsl_file_path="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\community_second_step_1.xsl";
     private final String post_first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_first_step.xsl";
@@ -36,8 +38,16 @@ public class VisitPostCommunityCommand extends FrontCommand{
         response.setContentType("text/html");
         List<Post> posts = databasePostLoader.getCommunityPosts(communityId);
         List<String> posts_html = getPostsHtmlTransformation(posts);
+        List<Community> communitiesPosts = new ArrayList<>();
+        List<User> usersPosts = new ArrayList<>();
+        for (Post post: posts) {
+            communitiesPosts.add(databaseCommunityLoader.getCommunity(post.getCommunityId()));
+            usersPosts.add(databaseUserLoader.loadUser(post.getUserId()));
+        }
         session.setAttribute("posts_html",posts_html);
         session.setAttribute("posts",posts);
+        session.setAttribute("communitiesPosts",communitiesPosts);
+        session.setAttribute("usersPosts",usersPosts);
     }
 
     private List<String> getPostsHtmlTransformation(List<Post> posts) {

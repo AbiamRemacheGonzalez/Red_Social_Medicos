@@ -11,7 +11,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% User loadedUser = (User) session.getAttribute("loadedUser");%>
 <% List<Community> communities = (List<Community>) session.getAttribute("communities");%>
-<% DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();%>
         <html>
 <head>
     <title>Explore</title>
@@ -36,6 +35,7 @@
     <p><h2 style="color:#a6a3a3;">Explore</h2></p>
     <p style="padding-top:4px;color:#4E4F50;font-size:14px">In explore page you can see all the communities that exist.</p><br>
     <%
+        DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();
         for (Community community:communities) {
             out.println("<table>" +
                     "<tr>\n" +
