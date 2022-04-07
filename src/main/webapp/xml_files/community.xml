@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Community>
-    <communityId>6</communityId>
-    <communityName>Nutrición</communityName>
-    <communityDescription>La nutrición es el proceso biológico en el que los organismos asimilan los alimentos sólidos y líquidos necesarios para el funcionamiento, el crecimiento y el mantenimiento de sus funciones vitales</communityDescription>
-    <communityMembers/>
-    <communityPosts/>
+    <communityId>1</communityId>
+    <communityName>Enfermería</communityName>
+    <communityDescription>Esta rama de la medicina se especializa en las necesidades básicas de la salud de una persona, de manera independiente a las funciones de un médico.</communityDescription>
 </Community>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><screen>
-    <id>5</id>
+    <id>23</id>
     <communityId>2</communityId>
-    <userId>4</userId>
-    <title>Grado en Biomedicina</title>
-    <description>La biomedicina es la ciencia que combina conocimientos de biología y de medicina para investigar el funcionamiento y comportamiento del cuerpo humano desde un enfoque multidisciplinar.
-
-Actualmente, nuestra sociedad demanda expertos en el ámbito de la salud que sean capaces de estudiar las bases moleculares del organismo para comprender qué ocurre cuando enferma y desarrollar nuevas técnicas para el diagnóstico y el tratamiento de las enfermedades.</description>
-    <date/>
+    <userId>1</userId>
+    <title>Prueba</title>
+    <description>Prueba</description>
+    <date>
+        0
+    </date>
     <evaluation>0</evaluation>
 </screen>

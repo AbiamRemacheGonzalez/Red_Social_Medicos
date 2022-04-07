@@ -1,12 +1,12 @@
 package com.example.red_social_medicos.Model;
 
-import javax.xml.XMLConstants;
+import javax.persistence.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
 import java.io.File;
-
+import java.util.Objects;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = {
         "userId",
@@ -15,52 +15,72 @@ import java.io.File;
         "userPassword"
 })
 @XmlRootElement(name = "User")
+@Entity
 public class User {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "userId")
     @XmlElement(name = "userId", required = true)
-    private Integer userId;
+    private int userId;
+    @Basic
+    @Column(name = "userName")
     @XmlElement(name = "userName", required = true)
     private String userName;
-    @XmlElement(name = "userEmail", required = true)
-    private String userEmail;
+    @Basic
+    @Column(name = "userPassword")
     @XmlElement(name = "userPassword", required = true)
     private String userPassword;
+    @Embedded
+    @XmlElement(name = "userEmail", required = true)
+    private EmailDatabaseEntity userEmail;
 
-    public User() {
+    public void setEmailDatabaseEntity(EmailDatabaseEntity emailDatabaseEntity) {
+        this.userEmail = emailDatabaseEntity;
     }
 
-    public User(String userName, String userEmail, String userPassword) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userPassword = userPassword;
+    public EmailDatabaseEntity getUserEmail() {
+        return userEmail;
     }
 
-    public User(Integer userId, String userName, String userEmail, String userPassword) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userPassword = userPassword;
-    }
-
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUserPassword() {return userPassword;}
+    public String getUserPassword() {
+        return userPassword;
+    }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId == user.userId && Objects.equals(userName, user.userName) && Objects.equals(userPassword, user.userPassword);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, userName, userPassword);
     }
 
     public File toXML() throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(User.class);
+        JAXBContext jaxbContext = JAXBContext.newInstance(com.example.red_social_medicos.Model.User.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, "utf-8");

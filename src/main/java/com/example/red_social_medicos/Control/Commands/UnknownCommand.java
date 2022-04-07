@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class UnknownCommand extends FrontCommand{
     private final String log_error_file_path = "C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\error_log";

@@ -3,7 +3,19 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="default">
-
+    <persistence-unit name="entities">
+        <class>com.example.red_social_medicos.Model.EmailDatabaseEntity</class>
+        <class>com.example.red_social_medicos.Model.User</class>
+        <class>com.example.red_social_medicos.Model.Community</class>
+        <class>com.example.red_social_medicos.Model.Member</class>
+        <class>com.example.red_social_medicos.Model.Post</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://root@localhost:3306/as_db"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+        </properties>
     </persistence-unit>
 </persistence>

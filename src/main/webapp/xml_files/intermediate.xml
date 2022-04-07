@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><screen>
-    <id>5</id>
-    <communityId>2</communityId>
-    <userId>4</userId>
-    <title>Grado en Biomedicina</title>
-    <description>La biomedicina es la ciencia que combina conocimientos de biología y de medicina para investigar el funcionamiento y comportamiento del cuerpo humano desde un enfoque multidisciplinar.
-
-Actualmente, nuestra sociedad demanda expertos en el ámbito de la salud que sean capaces de estudiar las bases moleculares del organismo para comprender qué ocurre cuando enferma y desarrollar nuevas técnicas para el diagnóstico y el tratamiento de las enfermedades.</description>
-    <date/>
-    <evaluation>0</evaluation>
+    <id>1</id>
+    <name>Enfermería</name>
+    <description>Esta rama de la medicina se especializa en las necesidades básicas de la salud de una persona, de manera independiente a las funciones de un médico.</description>
 </screen>

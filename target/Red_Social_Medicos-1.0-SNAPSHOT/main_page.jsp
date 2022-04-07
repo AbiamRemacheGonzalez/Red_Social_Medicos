@@ -1,13 +1,13 @@
 <%@ page import="com.example.red_social_medicos.Model.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.red_social_medicos.Model.Post" %>
-<%@ page import="com.example.red_social_medicos.Persistence.DatabaseCommunityLoader" %>
 <%@ page import="com.example.red_social_medicos.Model.Community" %>
-<%@ page import="com.example.red_social_medicos.Persistence.DatabaseUserLoader" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% User loadedUser = (User) session.getAttribute("loadedUser");%>
 <% List<String> posts_html = (List<String>) session.getAttribute("posts_html");%>
 <% List<Post> posts = (List<Post>) session.getAttribute("posts");%>
+<% List<Community> communitiesPosts = (List<Community>) session.getAttribute("communitiesPosts");%>
+<% List<User> usersPosts = (List<User>) session.getAttribute("usersPosts");%>
 
 <html>
 <head>
@@ -18,7 +18,7 @@
 <header>
 <nav class="navMenu">
     <%
-        out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
+        out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail().toString()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
     %>
     <%
         out.println("<a href=\"FrontControllerServlet?command=ExploreCommunitiesCommand\">Explore</a>");
@@ -33,11 +33,9 @@
     <p><h2 style="color:#a6a3a3;">Home</h2></p>
     <p style="padding-top:4px;color:#4E4F50;font-size:14px">In home page you can see the posts of the communities you are joined.</p><br>
     <%
-        DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();
-        DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
         for (int i = 0; i < posts.size(); i++) {
-            Community currentCommunity = databaseCommunityLoader.getCommunity(posts.get(i).getCommunityId());
-            User currentUser =  databaseUserLoader.loadUser(posts.get(i).getUserId());
+            Community currentCommunity = communitiesPosts.get(i);
+            User currentUser = usersPosts.get(i);
             String htmlPostTransformation = posts_html.get(i);
             out.println("<table>" +
                     "<tr>\n" +

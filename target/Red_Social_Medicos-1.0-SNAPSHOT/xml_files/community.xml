@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Community>
-    <communityId>6</communityId>
-    <communityName>Nutrición</communityName>
-    <communityDescription>La nutrición es el proceso biológico en el que los organismos asimilan los alimentos sólidos y líquidos necesarios para el funcionamiento, el crecimiento y el mantenimiento de sus funciones vitales</communityDescription>
-    <communityMembers/>
-    <communityPosts/>
+    <communityId>2</communityId>
+    <communityName>Biomedicina</communityName>
+    <communityDescription>Esta disciplina se define como el estudio de los rasgos biológicos de la medicina. Su campo de conocimiento y práctica es muy amplio, por ejemplo: los mecanismos moleculares, celulares, bioquímicos y/o genéticos. Estos estudios están encaminados a desarro</communityDescription>
 </Community>

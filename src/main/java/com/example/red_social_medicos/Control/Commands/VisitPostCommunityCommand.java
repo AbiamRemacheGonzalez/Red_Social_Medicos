@@ -4,21 +4,19 @@ import com.example.red_social_medicos.Control.XSLTProcessor;
 import com.example.red_social_medicos.Model.Community;
 import com.example.red_social_medicos.Model.Post;
 import com.example.red_social_medicos.Model.User;
-import com.example.red_social_medicos.Persistence.DatabaseCommunityLoader;
-import com.example.red_social_medicos.Persistence.DatabasePostLoader;
-import com.example.red_social_medicos.Persistence.DatabaseUserLoader;
+import com.example.red_social_medicos.Persistence.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class VisitPostCommunityCommand extends FrontCommand{
-    DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();
-    DatabasePostLoader databasePostLoader = new DatabasePostLoader();
-    DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
+    CommunitiesEntityFacade communitiesEntityFacade = new CommunitiesEntityFacade();
+    MembersEntityFacade membersEntityFacade = new MembersEntityFacade();
+    PostsEntityFacade postsEntityFacade = new PostsEntityFacade();
+    private UsersEntityFacade usersEntityFacade = new UsersEntityFacade();
     private final String first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\community_first_step.xsl";
     private final String second_step_xsl_file_path="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\community_second_step_1.xsl";
     private final String post_first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_first_step.xsl";
@@ -36,14 +34,16 @@ public class VisitPostCommunityCommand extends FrontCommand{
 
     private void getPostCommunities() {
         response.setContentType("text/html");
-        List<Post> posts = databasePostLoader.getCommunityPosts(communityId);
+        List<Post> posts = postsEntityFacade.findByCommunityId(communityId);
         List<String> posts_html = getPostsHtmlTransformation(posts);
         List<Community> communitiesPosts = new ArrayList<>();
         List<User> usersPosts = new ArrayList<>();
         for (Post post: posts) {
-            communitiesPosts.add(databaseCommunityLoader.getCommunity(post.getCommunityId()));
-            usersPosts.add(databaseUserLoader.loadUser(post.getUserId()));
+            communitiesPosts.add(communitiesEntityFacade.find(post.getCommunityId()));
+            usersPosts.add(usersEntityFacade.find(post.getUserId()));
         }
+        User user = (User)session.getAttribute("loadedUser");
+        session.setAttribute("userIsMember",membersEntityFacade.isMemberOfACommunity(user.getUserId(),communityId));
         session.setAttribute("posts_html",posts_html);
         session.setAttribute("posts",posts);
         session.setAttribute("communitiesPosts",communitiesPosts);
@@ -64,7 +64,7 @@ public class VisitPostCommunityCommand extends FrontCommand{
     }
 
     private void getCommunityDetails() {
-        Community community = databaseCommunityLoader.getCommunity(communityId);
+        Community community = communitiesEntityFacade.find(communityId);
         XSLTProcessor xsltProcessor = new XSLTProcessor(first_step_xsl_file_path,second_step_xsl_file_path);
         String community_html = xsltProcessor.getTransformation(community.toXML());
         session.setAttribute("community_html",community_html);

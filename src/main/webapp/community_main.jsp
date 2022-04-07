@@ -2,16 +2,15 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.red_social_medicos.Model.Post" %>
 <%@ page import="com.example.red_social_medicos.Model.Community" %>
-<%@ page import="com.example.red_social_medicos.Persistence.DatabaseCommunityLoader" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% User loadedUser = (User) session.getAttribute("loadedUser");%>
 <% Community community= (Community) session.getAttribute("community");%>
-<% DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();%>
 <% String community_html= (String) session.getAttribute("community_html");%>
 <% List<String> posts_html = (List<String>) session.getAttribute("posts_html");%>
 <% List<Post> posts = (List<Post>) session.getAttribute("posts");%>
 <% List<Community> communitiesPosts = (List<Community>) session.getAttribute("communitiesPosts");%>
 <% List<User> usersPosts = (List<User>) session.getAttribute("usersPosts");%>
+<% Boolean userIsMember = (Boolean) session.getAttribute("userIsMember");%>
 <html>
 <head>
     <title>Explore</title>
@@ -21,7 +20,7 @@
 <header>
     <nav class="navMenu">
         <%
-            out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
+            out.println("<a href=\"FrontControllerServlet?command=LoginCommand&userEmail="+loadedUser.getUserEmail().toString()+"&userPassword="+loadedUser.getUserPassword()+"\">Home</a>");
         %>
         <%
             out.println("<a href=\"FrontControllerServlet?command=ExploreCommunitiesCommand\">Explore</a>");
@@ -38,7 +37,7 @@
         String command = "JoinCommunityCommand";
         String name = "Join";
         String clas = "joinButton";
-        if(databaseCommunityLoader.userIsMember(community.getCommunityId(),loadedUser.getUserId())){
+        if(userIsMember){
             command = "LeaveCommunityCommand";
             name = "Leave";
             clas = "leaveButton";

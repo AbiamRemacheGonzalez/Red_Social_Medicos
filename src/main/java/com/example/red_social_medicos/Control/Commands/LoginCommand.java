@@ -4,21 +4,20 @@ import com.example.red_social_medicos.Control.XSLTProcessor;
 import com.example.red_social_medicos.Model.Community;
 import com.example.red_social_medicos.Model.Post;
 import com.example.red_social_medicos.Model.User;
-import com.example.red_social_medicos.Persistence.DatabaseCommunityLoader;
-import com.example.red_social_medicos.Persistence.DatabasePostLoader;
-import com.example.red_social_medicos.Persistence.DatabaseUserLoader;
+import com.example.red_social_medicos.Persistence.CommunitiesEntityFacade;
+import com.example.red_social_medicos.Persistence.PostsEntityFacade;
+import com.example.red_social_medicos.Persistence.UsersEntityFacade;
 
 import javax.servlet.ServletException;
 import javax.xml.bind.JAXBException;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginCommand extends FrontCommand{
-    private DatabaseUserLoader databaseUserLoader = new DatabaseUserLoader();
-    private DatabasePostLoader databasePostLoader = new DatabasePostLoader();
-    private DatabaseCommunityLoader databaseCommunityLoader = new DatabaseCommunityLoader();
+    private UsersEntityFacade usersEntityFacade = new UsersEntityFacade();
+    PostsEntityFacade postsEntityFacade = new PostsEntityFacade();
+    private CommunitiesEntityFacade communitiesEntityFacade = new CommunitiesEntityFacade();
 
     private String first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_first_step.xsl";
     private String second_step_xsl_file_path= "C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_second_step.xsl";
@@ -38,14 +37,14 @@ public class LoginCommand extends FrontCommand{
     private boolean checkLoginValues() {
         String userEmail = request.getParameter("userEmail");
         String userPassword = request.getParameter("userPassword");
-        User loadedUser = databaseUserLoader.loadUser(userEmail,userPassword);
+        User loadedUser = usersEntityFacade.findBy(userEmail,userPassword);
         if(loadedUser!=null) {
-            List<Post> posts = databasePostLoader.getMyCommunitiesPosts(loadedUser.getUserId());
+            List<Post> posts = postsEntityFacade.getUserCommunitiesPosts(loadedUser.getUserId());
             List<Community> communitiesPosts = new ArrayList<>();
             List<User> usersPosts = new ArrayList<>();
             for (Post post: posts) {
-                communitiesPosts.add(databaseCommunityLoader.getCommunity(post.getCommunityId()));
-                usersPosts.add(databaseUserLoader.loadUser(post.getUserId()));
+                communitiesPosts.add(communitiesEntityFacade.find(post.getCommunityId()));
+                usersPosts.add(usersEntityFacade.find(post.getUserId()));
             }
             List<String> posts_html = getPostsHtmlTransformation(posts);
             session.setAttribute("posts",posts);
