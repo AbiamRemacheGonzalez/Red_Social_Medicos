@@ -127,6 +127,28 @@ table {
 table:hover{
     border-color: #D7DADC;
 }
+
+.search{
+    border: 2px solid #343536;
+    padding:2px 2px;
+    border-radius: 2px;
+    text-align: justify-all;
+    color: white;
+    background-color: #1A1A1B;
+    width: 950px;
+}
+
+.search:hover{
+    border-color: #D7DADC;
+}
+
+.input-text{
+    background-color: #4E4F50;
+    color:white;
+    height: 100%;
+    width: 97%;
+}
+
 .communitySubmit{
     background-color: #1A1A1B;
     border: none;

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class PostsEntityFacade extends AbstractFacade{
     private final EntityManager em = EntityManagerGenerator.getEntityManager("entities");
+    CommunitiesEntityFacade communitiesEntityFacade = new CommunitiesEntityFacade();
 
     @Override
     protected EntityManager getEntityManager() {
@@ -19,20 +20,25 @@ public class PostsEntityFacade extends AbstractFacade{
         super(Post.class);
     }
 
-    public List<Post> getUserCommunitiesPosts(int userId){
-        CommunitiesEntityFacade communitiesEntityFacade = new CommunitiesEntityFacade();
-        List<Post> userCommunitiesPosts = new ArrayList<>();
-        List<Community> userCommunities = communitiesEntityFacade.findByUserId(userId);
-        for (Community userCommunity: userCommunities) {
-            List<Post> userCommunityPosts = this.findByCommunityId(userCommunity.getCommunityId());
-            userCommunitiesPosts.addAll(userCommunityPosts);
+    public Long getCountOfPages(int userId, String searchKey){
+        Long numOfPosts = (Long)em.createQuery("SELECT count(p) FROM Community c JOIN Post p ON c.communityId = p.communityId JOIN Member m ON p.communityId = m.communityId WHERE m.userId = :userId and p.postDescription LIKE concat('%',:searchKey,'%')")
+                .setParameter("userId",userId)
+                .setParameter("searchKey",searchKey)
+                .getSingleResult();
+        if(numOfPosts%5 != 0){
+            return  (numOfPosts/5)+1;
+        }else{
+            return numOfPosts/5;
         }
-        return userCommunitiesPosts;
     }
 
-    public List<Post> findByCommunityId(int communityId){
-        return em.createQuery("SELECT c from  Post c where c.communityId = :communityId order by c.creationDate")
-                .setParameter("communityId",communityId)
+    public List<Post> searchUserCommunitiesPostsOptimized(int userId, String searchKey,Integer numOfPage){
+        int first = (numOfPage-1)*5;
+        return em.createQuery("SELECT p FROM Community c JOIN Post p ON c.communityId = p.communityId JOIN Member m ON p.communityId = m.communityId WHERE m.userId = :userId and p.postDescription LIKE concat('%',:searchKey,'%')")
+                .setParameter("userId",userId)
+                .setParameter("searchKey",searchKey)
+                .setMaxResults(5)
+                .setFirstResult(first)
                 .getResultList();
     }
 }

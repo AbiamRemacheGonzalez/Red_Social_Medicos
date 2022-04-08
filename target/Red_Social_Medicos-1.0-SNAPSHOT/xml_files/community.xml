@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Community>
-    <communityId>2</communityId>
-    <communityName>Biomedicina</communityName>
-    <communityDescription>Esta disciplina se define como el estudio de los rasgos biológicos de la medicina. Su campo de conocimiento y práctica es muy amplio, por ejemplo: los mecanismos moleculares, celulares, bioquímicos y/o genéticos. Estos estudios están encaminados a desarro</communityDescription>
+    <communityId>1</communityId>
+    <communityName>Enfermería</communityName>
+    <communityDescription>Esta rama de la medicina se especializa en las necesidades básicas de la salud de una persona, de manera independiente a las funciones de un médico.</communityDescription>
 </Community>

@@ -8,11 +8,15 @@
 <% List<Post> posts = (List<Post>) session.getAttribute("posts");%>
 <% List<Community> communitiesPosts = (List<Community>) session.getAttribute("communitiesPosts");%>
 <% List<User> usersPosts = (List<User>) session.getAttribute("usersPosts");%>
+<% Long numberOfPages = (Long) session.getAttribute("numberOfPages");%>
+<% int currentPage = (int) session.getAttribute("currentPage");%>
 
 <html>
 <head>
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="css_files/base_style.css" media="screen"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
 <header>
@@ -33,10 +37,21 @@
     <p><h2 style="color:#a6a3a3;">Home</h2></p>
     <p style="padding-top:4px;color:#4E4F50;font-size:14px">In home page you can see the posts of the communities you are joined.</p><br>
     <%
+        out.println("<table class='search'><tr><td>\n" +
+                "<form action='FrontControllerServlet'>\n" +
+                "           <input type=\"hidden\" name=\"command\" value=\"SearchPostCommand\"></input>\n" +
+                "           <input type=\"hidden\" name=\"page\" value=\"1\"></input>\n" +
+                "           <input class='input-text' name='search_text' placeholder='Buscar post' type='text'/>\n" +
+                "           <button type='submit'><i class='fa fa-search'></i></button>\n" +
+                "</form>\n" +
+                "</td></tr></table><br>");
+
+
         for (int i = 0; i < posts.size(); i++) {
             Community currentCommunity = communitiesPosts.get(i);
             User currentUser = usersPosts.get(i);
             String htmlPostTransformation = posts_html.get(i);
+
             out.println("<table>" +
                     "<tr>\n" +
                     "   <td>\n" +
@@ -68,8 +83,17 @@
                     "</tr></div>"+
                     "</table><br>");
         }
+        out.println("<p style=\"padding-top:3px;padding-bottom:10px;color:#4E4F50;font-size:14px;text-align:center;\">Page "+currentPage+" of "+numberOfPages+"</p>");
+        out.println("<div style=\"text-align:center;\">");
+        if(currentPage!=1)out.println("<a href=\"FrontControllerServlet?command=SearchPostCommand&page="+(currentPage-1)+"\">Anterior</a>");
+        for (int i = 1; i <= numberOfPages; i++) {
+            out.println("<a href=\"FrontControllerServlet?command=SearchPostCommand&page="+i+"\">"+i+"</a>");
+        }
+        if(currentPage!=numberOfPages)out.println("<a href=\"FrontControllerServlet?command=SearchPostCommand&page="+(currentPage+1)+"\">Siguiente</a>");
+        out.println("</div>");
      %>
 </div>
+
 <footer id="mobile-footer">
     <div id="mobile-menu">
         <div id="mobile-footer-container">

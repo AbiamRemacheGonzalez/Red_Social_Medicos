@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?><screen>
-    <id>1</id>
-    <name>Enfermería</name>
-    <description>Esta rama de la medicina se especializa en las necesidades básicas de la salud de una persona, de manera independiente a las funciones de un médico.</description>
+    <id>25</id>
+    <communityId>6</communityId>
+    <userId>5</userId>
+    <title>La Creatina es buena</title>
+    <description>Es proteina pura mientras no tomes mucha azucar todo bien.</description>
+    <date>
+        0
+    </date>
+    <evaluation>0</evaluation>
 </screen>

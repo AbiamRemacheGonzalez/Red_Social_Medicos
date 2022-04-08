@@ -39,7 +39,7 @@ public class LoginCommand extends FrontCommand{
         String userPassword = request.getParameter("userPassword");
         User loadedUser = usersEntityFacade.findBy(userEmail,userPassword);
         if(loadedUser!=null) {
-            List<Post> posts = postsEntityFacade.getUserCommunitiesPosts(loadedUser.getUserId());
+            List<Post> posts = postsEntityFacade.searchUserCommunitiesPostsOptimized(loadedUser.getUserId(), "",1);//postsEntityFacade.getUserCommunitiesPosts(loadedUser.getUserId());
             List<Community> communitiesPosts = new ArrayList<>();
             List<User> usersPosts = new ArrayList<>();
             for (Post post: posts) {
@@ -48,6 +48,8 @@ public class LoginCommand extends FrontCommand{
             }
             List<String> posts_html = getPostsHtmlTransformation(posts);
             session.setAttribute("posts",posts);
+            session.setAttribute("numberOfPages",postsEntityFacade.getCountOfPages(loadedUser.getUserId(), ""));
+            session.setAttribute("currentPage",1);
             session.setAttribute("posts_html",posts_html);
             session.setAttribute("loadedUser",loadedUser);
             session.setAttribute("communitiesPosts",communitiesPosts);

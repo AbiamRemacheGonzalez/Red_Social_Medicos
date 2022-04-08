@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Post>
-    <postId>4</postId>
+    <postId>25</postId>
     <communityId>6</communityId>
-    <userId>2</userId>
-    <postTitle>¿Cuáles son las mejores tortillas?</postTitle>
-    <postDescription>Se dice que la inventó el bar Néstor de San Sebastián allá por los 80. Néstor y su esposa solo preparaban dos al día, las cortaban en porciones y las entregaban únicamente a quienes llegaban antes de la hora de apertura del local para apuntarse en una lista. Desde entonces, los españoles se pueden clasificar en dos: Los que prefieren la tortilla con cebolla o los que la prefieren sin. Es así de simple o de complejo, según se mire. Esta cuestión (ríete tú de la política) ha roto parejas, amistades y daría de sí para eternos referéndum. ¿Quieres sumar un punto en la discusión? La de Néstor SÍ llevaba cebolla.
-
-En cualquier caso, con cebolla, sin cebolla o con algún que otro aderezo, hemos cometido la osadía de elegir algunas que podrían superar a las de tu madre. De acuerdo, no la hemos probado, o tal vez sí, pero son diez que en nuestra humilde opinión, y tras algunos sondeos, merecen estar en este ranking. Atención a polemistas: El orden es rigurosamente alfabético.</postDescription>
+    <userId>5</userId>
+    <postTitle>La Creatina es buena</postTitle>
+    <postDescription>Es proteina pura mientras no tomes mucha azucar todo bien.</postDescription>
     <creationDate>
         <nanos>0</nanos>
     </creationDate>
