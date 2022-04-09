@@ -27,7 +27,7 @@
         <%
             out.println("<a href=\"FrontControllerServlet?command=ExploreCommunitiesCommand\">Explore</a>");
         %>
-        <a href="#">Profile</a>
+        <a href="profile.jsp">Profile</a>
         <a href="index.jsp">LogOut</a>
         <div class="dot"></div>
     </nav>

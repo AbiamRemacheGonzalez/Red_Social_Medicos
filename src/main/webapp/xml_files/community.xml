@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Community>
-    <communityId>3</communityId>
-    <communityName>Odontología</communityName>
-    <communityDescription>Esta rama de la medicina se encarga exclusivamente de la salud bucal a través del diagnóstico, el tratamiento y la prevención de enfermedades de dientes, encías, tejido periodontal, etc.</communityDescription>
+    <communityId>1</communityId>
+    <communityName>Enfermería</communityName>
+    <communityDescription>Esta rama de la medicina se especializa en las necesidades básicas de la salud de una persona, de manera independiente a las funciones de un médico.</communityDescription>
 </Community>

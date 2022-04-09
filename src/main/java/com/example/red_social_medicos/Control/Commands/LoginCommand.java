@@ -1,13 +1,11 @@
 package com.example.red_social_medicos.Control.Commands;
 
 import com.example.red_social_medicos.Control.XSLTProcessor;
+import com.example.red_social_medicos.Model.Aditionaluserinfo;
 import com.example.red_social_medicos.Model.Community;
 import com.example.red_social_medicos.Model.Post;
 import com.example.red_social_medicos.Model.User;
-import com.example.red_social_medicos.Persistence.CommunitiesEntityFacade;
-import com.example.red_social_medicos.Persistence.EvaluationsEntityFacade;
-import com.example.red_social_medicos.Persistence.PostsEntityFacade;
-import com.example.red_social_medicos.Persistence.UsersEntityFacade;
+import com.example.red_social_medicos.Persistence.*;
 
 import javax.servlet.ServletException;
 import javax.xml.bind.JAXBException;
@@ -20,6 +18,7 @@ public class LoginCommand extends FrontCommand{
     private PostsEntityFacade postsEntityFacade = new PostsEntityFacade();
     private EvaluationsEntityFacade evaluationsEntityFacade = new EvaluationsEntityFacade();
     private CommunitiesEntityFacade communitiesEntityFacade = new CommunitiesEntityFacade();
+    private AditionalUsersInfoEntityFacade aditionalUsersInfoEntityFacade = new AditionalUsersInfoEntityFacade();
 
     private String first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_first_step.xsl";
     private String second_step_xsl_file_path= "C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_second_step.xsl";
@@ -40,6 +39,9 @@ public class LoginCommand extends FrontCommand{
         String userEmail = request.getParameter("userEmail");
         String userPassword = request.getParameter("userPassword");
         User loadedUser = usersEntityFacade.findBy(userEmail,userPassword);
+        Aditionaluserinfo aditionaluserinfo = aditionalUsersInfoEntityFacade.getAdditionaluserinfo(loadedUser.getUserId());
+        session.setAttribute("loadedUser",loadedUser);
+        session.setAttribute("additionuserinfo",aditionaluserinfo);
         if(loadedUser!=null) {
             List<Post> posts = postsEntityFacade.searchUserCommunitiesPostsOptimized(loadedUser.getUserId(), "",1);//postsEntityFacade.getUserCommunitiesPosts(loadedUser.getUserId());
             List<Community> communitiesPosts = new ArrayList<>();
@@ -57,7 +59,6 @@ public class LoginCommand extends FrontCommand{
             session.setAttribute("numberOfPages",postsEntityFacade.getCountOfPages(loadedUser.getUserId(), ""));
             session.setAttribute("currentPage",1);
             session.setAttribute("posts_html",posts_html);
-            session.setAttribute("loadedUser",loadedUser);
             session.setAttribute("communitiesPosts",communitiesPosts);
             session.setAttribute("usersPosts",usersPosts);
             session.setAttribute("postLikes",postLikes);

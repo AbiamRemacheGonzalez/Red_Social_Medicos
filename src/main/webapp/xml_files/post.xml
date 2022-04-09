@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Post>
-    <postId>1</postId>
+    <postId>25</postId>
     <communityId>6</communityId>
-    <userId>3</userId>
-    <postTitle>Tipos de cereales buenos para desayunar</postTitle>
-    <postDescription>Los cereales sin azúcar y con frutas. Si podéis usad leche de almendras.</postDescription>
+    <userId>5</userId>
+    <postTitle>La Creatina es buena</postTitle>
+    <postDescription>Es proteina pura mientras no tomes mucha azucar todo bien.</postDescription>
     <creationDate>
         <nanos>0</nanos>
     </creationDate>

@@ -1,6 +1,5 @@
 package com.example.red_social_medicos.Control.Commands;
 
-import com.example.red_social_medicos.Model.Community;
 import com.example.red_social_medicos.Model.Evaluation;
 import com.example.red_social_medicos.Model.Post;
 import com.example.red_social_medicos.Model.User;

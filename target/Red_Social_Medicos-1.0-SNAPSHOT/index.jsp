@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Login</title>
     <link rel="stylesheet" type="text/css" href="css_files/main_style.css" media="screen"/>
 </head>
 <body>
