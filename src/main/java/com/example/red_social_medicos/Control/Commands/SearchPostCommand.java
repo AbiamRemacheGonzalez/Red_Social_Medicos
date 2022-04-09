@@ -5,6 +5,7 @@ import com.example.red_social_medicos.Model.Community;
 import com.example.red_social_medicos.Model.Post;
 import com.example.red_social_medicos.Model.User;
 import com.example.red_social_medicos.Persistence.CommunitiesEntityFacade;
+import com.example.red_social_medicos.Persistence.EvaluationsEntityFacade;
 import com.example.red_social_medicos.Persistence.PostsEntityFacade;
 import com.example.red_social_medicos.Persistence.UsersEntityFacade;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class SearchPostCommand extends FrontCommand{
     private PostsEntityFacade postsEntityFacade = new PostsEntityFacade();
+    private EvaluationsEntityFacade evaluationsEntityFacade = new EvaluationsEntityFacade();
     private CommunitiesEntityFacade communitiesEntityFacade = new CommunitiesEntityFacade();
     private UsersEntityFacade usersEntityFacade = new UsersEntityFacade();
 
@@ -29,11 +31,16 @@ public class SearchPostCommand extends FrontCommand{
         User loadedUser = (User) session.getAttribute("loadedUser");
 
         List<Post> posts = postsEntityFacade.searchUserCommunitiesPostsOptimized(loadedUser.getUserId(), searchKey,page);
+
         List<Community> communitiesPosts = new ArrayList<>();
         List<User> usersPosts = new ArrayList<>();
+        List<Long> postLikes = new ArrayList<>();
+        List<Boolean> postUserEvaluation = new ArrayList<>();
         for (Post post: posts) {
             communitiesPosts.add(communitiesEntityFacade.find(post.getCommunityId()));
             usersPosts.add(usersEntityFacade.find(post.getUserId()));
+            postLikes.add(evaluationsEntityFacade.getLikes(post.getPostId()));
+            postUserEvaluation.add(evaluationsEntityFacade.isEvaluate(post.getPostId(), loadedUser.getUserId()));
         }
         List<String> posts_html = getPostsHtmlTransformation(posts);
         session.setAttribute("posts",posts);
@@ -42,6 +49,8 @@ public class SearchPostCommand extends FrontCommand{
         session.setAttribute("posts_html",posts_html);
         session.setAttribute("communitiesPosts",communitiesPosts);
         session.setAttribute("usersPosts",usersPosts);
+        session.setAttribute("postLikes",postLikes);
+        session.setAttribute("postUserEvaluation",postUserEvaluation);
         forward("/main_page.jsp");
     }
 

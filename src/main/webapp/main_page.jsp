@@ -8,6 +8,8 @@
 <% List<Post> posts = (List<Post>) session.getAttribute("posts");%>
 <% List<Community> communitiesPosts = (List<Community>) session.getAttribute("communitiesPosts");%>
 <% List<User> usersPosts = (List<User>) session.getAttribute("usersPosts");%>
+<% List<Long> postLikes = (List<Long>) session.getAttribute("postLikes");%>
+<% List<Boolean> postUserEvaluation = (List<Boolean>) session.getAttribute("postUserEvaluation");%>
 <% Long numberOfPages = (Long) session.getAttribute("numberOfPages");%>
 <% int currentPage = (int) session.getAttribute("currentPage");%>
 
@@ -35,7 +37,7 @@
 
 <div class="container">
     <p><h2 style="color:#a6a3a3;">Home</h2></p>
-    <p style="padding-top:4px;color:#4E4F50;font-size:14px">In home page you can see the posts of the communities you are joined.</p><br>
+    <p style="padding-top:4px;color:#4E4F50;font-size:14px">Welcome <%=loadedUser.getUserName()%>! In home page you can see the posts of the communities you are joined.</p><br>
     <%
         out.println("<table class='search'><tr><td>\n" +
                 "<form action='FrontControllerServlet'>\n" +
@@ -62,10 +64,10 @@
                     "       </form>\n" +
                     "   </td>\n" +
                     "   <td> <p style=\"color:#4E4F50;font-size:12px\">Posted by "+currentUser.getUserName()+" at "+posts.get(i).getCreationDate()+"</td>"+
-                    "   <td> <p style=\"font-size:12px\">Likes "+posts.get(i).getPostEvaluation()+"</p></td>"+
-                    "</tr>" +
-                    htmlPostTransformation +
-                    "<div class=\"postfoot\"><tr>\n" +
+                    "   <td> <p style=\"font-size:12px\">Likes "+postLikes.get(i)+"</p></td>"+
+                    "</tr>");
+            out.println(htmlPostTransformation);
+            out.println("<div class=\"postfoot\"><tr>\n" +
                     "   <td>\n" +
                     "       <form action=\"FrontControllerServlet\">\n" +
                     "           <input type=\"hidden\" name=\"command\" value=\"CommentPostCommand\"></input>\n" +
@@ -76,9 +78,15 @@
                     "   <td colspan=\"2\">\n" +
                     "       <form action=\"FrontControllerServlet\">\n" +
                     "           <input type=\"hidden\" name=\"command\" value=\"EvaluateCommand\"></input>\n" +
-                    "           <input type=\"hidden\" name=\"postId\" value='"+posts.get(i).getPostId()+"'>\n" +
-                    "           <input type=\"submit\" class=\"commmentSubmit\" name=\"Like\" value=\"Like\"></input>\n" +
-                    "       </form>\n" +
+                    "           <input type=\"hidden\" name=\"postId\" value='"+posts.get(i).getPostId()+"'>\n"+
+                    "           <input type=\"hidden\" name=\"requestOriginPath\" value='/main_page.jsp'>\n");
+            if(postUserEvaluation.get(i)){
+                out.println("           <input type=\"submit\" class=\"commmentSubmit\" name=\"Dislike\" value=\"Dislike\"></input>\n");
+            }else{
+                out.println("           <input type=\"submit\" class=\"commmentSubmit\" name=\"Like\" value=\"Like\"></input>\n");
+            }
+
+            out.println("       </form>\n" +
                     "   </td>\n" +
                     "</tr></div>"+
                     "</table><br>");
@@ -91,6 +99,7 @@
         }
         if(currentPage!=numberOfPages)out.println("<a href=\"FrontControllerServlet?command=SearchPostCommand&page="+(currentPage+1)+"\">Siguiente</a>");
         out.println("</div>");
+
      %>
 </div>
 

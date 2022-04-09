@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VisitPostCommunityCommand extends FrontCommand{
-    CommunitiesEntityFacade communitiesEntityFacade = new CommunitiesEntityFacade();
-    MembersEntityFacade membersEntityFacade = new MembersEntityFacade();
-    PostsEntityFacade postsEntityFacade = new PostsEntityFacade();
+    private CommunitiesEntityFacade communitiesEntityFacade = new CommunitiesEntityFacade();
+    private MembersEntityFacade membersEntityFacade = new MembersEntityFacade();
+    private PostsEntityFacade postsEntityFacade = new PostsEntityFacade();
+    private EvaluationsEntityFacade evaluationsEntityFacade = new EvaluationsEntityFacade();
+
     private UsersEntityFacade usersEntityFacade = new UsersEntityFacade();
     private final String first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\community_first_step.xsl";
     private final String second_step_xsl_file_path="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\community_second_step_1.xsl";
@@ -34,13 +36,18 @@ public class VisitPostCommunityCommand extends FrontCommand{
 
     private void getPostCommunities() {
         response.setContentType("text/html");
+        User loadedUser = (User) session.getAttribute("loadedUser");
         List<Post> posts = postsEntityFacade.findByCommunityId(communityId);
         List<String> posts_html = getPostsHtmlTransformation(posts);
         List<Community> communitiesPosts = new ArrayList<>();
         List<User> usersPosts = new ArrayList<>();
+        List<Long> postLikes = new ArrayList<>();
+        List<Boolean> postUserEvaluation = new ArrayList<>();
         for (Post post: posts) {
             communitiesPosts.add(communitiesEntityFacade.find(post.getCommunityId()));
             usersPosts.add(usersEntityFacade.find(post.getUserId()));
+            postLikes.add(evaluationsEntityFacade.getLikes(post.getPostId()));
+            postUserEvaluation.add(evaluationsEntityFacade.isEvaluate(post.getPostId(), loadedUser.getUserId()));
         }
         User user = (User)session.getAttribute("loadedUser");
         session.setAttribute("userIsMember",membersEntityFacade.isMemberOfACommunity(user.getUserId(),communityId));
@@ -48,6 +55,8 @@ public class VisitPostCommunityCommand extends FrontCommand{
         session.setAttribute("posts",posts);
         session.setAttribute("communitiesPosts",communitiesPosts);
         session.setAttribute("usersPosts",usersPosts);
+        session.setAttribute("postLikes",postLikes);
+        session.setAttribute("postUserEvaluation",postUserEvaluation);
     }
 
     private List<String> getPostsHtmlTransformation(List<Post> posts) {

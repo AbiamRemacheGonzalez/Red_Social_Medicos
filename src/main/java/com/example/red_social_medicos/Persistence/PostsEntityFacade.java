@@ -20,6 +20,12 @@ public class PostsEntityFacade extends AbstractFacade{
         super(Post.class);
     }
 
+    public List<Post> findByCommunityId(int communityId){
+        return em.createQuery("SELECT c from  Post c where c.communityId = :communityId order by c.creationDate")
+                .setParameter("communityId",communityId)
+                .getResultList();
+    }
+
     public Long getCountOfPages(int userId, String searchKey){
         Long numOfPosts = (Long)em.createQuery("SELECT count(p) FROM Community c JOIN Post p ON c.communityId = p.communityId JOIN Member m ON p.communityId = m.communityId WHERE m.userId = :userId and p.postDescription LIKE concat('%',:searchKey,'%')")
                 .setParameter("userId",userId)
@@ -34,7 +40,11 @@ public class PostsEntityFacade extends AbstractFacade{
 
     public List<Post> searchUserCommunitiesPostsOptimized(int userId, String searchKey,Integer numOfPage){
         int first = (numOfPage-1)*5;
-        return em.createQuery("SELECT p FROM Community c JOIN Post p ON c.communityId = p.communityId JOIN Member m ON p.communityId = m.communityId WHERE m.userId = :userId and p.postDescription LIKE concat('%',:searchKey,'%')")
+        return em.createQuery("SELECT p FROM Community c " +
+                        "JOIN Post p ON c.communityId = p.communityId " +
+                        "JOIN Member m ON p.communityId = m.communityId " +
+                        "WHERE m.userId = :userId and p.postDescription " +
+                        "LIKE concat('%',:searchKey,'%') order by p.postTitle")
                 .setParameter("userId",userId)
                 .setParameter("searchKey",searchKey)
                 .setMaxResults(5)

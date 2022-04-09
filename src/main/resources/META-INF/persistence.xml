@@ -9,6 +9,7 @@
         <class>com.example.red_social_medicos.Model.Community</class>
         <class>com.example.red_social_medicos.Model.Member</class>
         <class>com.example.red_social_medicos.Model.Post</class>
+        <class>com.example.red_social_medicos.Model.Evaluation</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.show_sql" value="true"/>
