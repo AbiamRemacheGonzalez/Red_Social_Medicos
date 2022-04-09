@@ -46,15 +46,7 @@ public class EvaluateCommand extends FrontCommand{
     }
 
     private void updateDataPage() {
-        Integer page = (request.getParameter("page")==null)?1:Integer.parseInt(request.getParameter("page"));
-        String searchKey = (request.getParameter("search_text")==null)?"":request.getParameter("search_text");
-        List<Post> posts;
-        if(requestOriginPath=="/main_page.jsp"){
-            posts = postsEntityFacade.searchUserCommunitiesPostsOptimized(loadedUser.getUserId(), searchKey,page);
-        }else{
-            Community community= (Community) session.getAttribute("community");
-            posts = postsEntityFacade.findByCommunityId(community.getCommunityId());
-        }
+        List<Post> posts = (List<Post>) session.getAttribute("posts");
 
         List<Long> postLikes = new ArrayList<>();
         List<Boolean> postUserEvaluation = new ArrayList<>();

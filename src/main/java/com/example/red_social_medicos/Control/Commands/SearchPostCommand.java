@@ -28,6 +28,8 @@ public class SearchPostCommand extends FrontCommand{
     public void process() throws ServletException, IOException, JAXBException {
         Integer page = Integer.parseInt(request.getParameter("page"));
         String searchKey = (request.getParameter("search_text")==null)?"":request.getParameter("search_text");
+        session.setAttribute("page",page);
+        session.setAttribute("searchKey",searchKey);
         User loadedUser = (User) session.getAttribute("loadedUser");
 
         List<Post> posts = postsEntityFacade.searchUserCommunitiesPostsOptimized(loadedUser.getUserId(), searchKey,page);

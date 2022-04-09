@@ -10,6 +10,8 @@
 <% List<Post> posts = (List<Post>) session.getAttribute("posts");%>
 <% List<Community> communitiesPosts = (List<Community>) session.getAttribute("communitiesPosts");%>
 <% List<User> usersPosts = (List<User>) session.getAttribute("usersPosts");%>
+<% List<Long> postLikes = (List<Long>) session.getAttribute("postLikes");%>
+<% List<Boolean> postUserEvaluation = (List<Boolean>) session.getAttribute("postUserEvaluation");%>
 <% Boolean userIsMember = (Boolean) session.getAttribute("userIsMember");%>
 <html>
 <head>
@@ -61,10 +63,10 @@
                     "       </form>\n" +
                     "   </td>\n" +
                     "   <td> <p style=\"color:#4E4F50;font-size:12px\">Posted by "+currentUser.getUserName()+" at "+posts.get(i).getCreationDate()+"</td>"+
-                    "   <td> <p style=\"font-size:12px\">Likes "+posts.get(i).getPostEvaluation()+"</p></td>"+
-                    "</tr>" +
-                    htmlPostTransformation +
-                    "<div class=\"postfoot\"><tr>\n" +
+                    "   <td> <p style=\"font-size:12px\">Likes "+postLikes.get(i)+"</p></td>"+
+                    "</tr>");
+            out.println(htmlPostTransformation);
+            out.println("<div class=\"postfoot\"><tr>\n" +
                     "   <td>\n" +
                     "       <form action=\"FrontControllerServlet\">\n" +
                     "           <input type=\"hidden\" name=\"command\" value=\"CommentPostCommand\"></input>\n" +
@@ -75,9 +77,15 @@
                     "   <td colspan=\"2\">\n" +
                     "       <form action=\"FrontControllerServlet\">\n" +
                     "           <input type=\"hidden\" name=\"command\" value=\"EvaluateCommand\"></input>\n" +
-                    "           <input type=\"hidden\" name=\"postId\" value='"+posts.get(i).getPostId()+"'>\n" +
-                    "           <input type=\"submit\" class=\"commmentSubmit\" name=\"Like\" value=\"Like\"></input>\n" +
-                    "       </form>\n" +
+                    "           <input type=\"hidden\" name=\"postId\" value='"+posts.get(i).getPostId()+"'>\n"+
+                    "           <input type=\"hidden\" name=\"requestOriginPath\" value='/community_main.jsp'>\n");
+            if(postUserEvaluation.get(i)){
+                out.println("           <input type=\"submit\" class=\"commmentSubmit\" name=\"Dislike\" value=\"Dislike\"></input>\n");
+            }else{
+                out.println("           <input type=\"submit\" class=\"commmentSubmit\" name=\"Like\" value=\"Like\"></input>\n");
+            }
+
+            out.println("       </form>\n" +
                     "   </td>\n" +
                     "</tr></div>"+
                     "</table><br>");
