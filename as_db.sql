@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-03-2022 a las 02:31:45
+-- Tiempo de generación: 17-04-2022 a las 20:27:23
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -24,20 +24,60 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `communities`
+-- Estructura de tabla para la tabla `aditionaluserinfo`
 --
 
-CREATE TABLE `communities` (
+CREATE TABLE `aditionaluserinfo` (
+  `userInfoId` int(25) NOT NULL,
+  `userId` int(255) NOT NULL,
+  `userAge` int(255) NOT NULL,
+  `userSex` int(255) NOT NULL,
+  `userNationality` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `aditionaluserinfo`
+--
+
+INSERT INTO `aditionaluserinfo` (`userInfoId`, `userId`, `userAge`, `userSex`, `userNationality`) VALUES
+(1, 1, 21, 0, 'Alemania'),
+(2, 2, 34, 0, 'Ucrania'),
+(3, 3, 22, 0, 'Inglaterra'),
+(4, 4, 18, 0, 'Noruega'),
+(5, 5, 43, 0, 'Croacia'),
+(6, 6, 25, 1, 'España'),
+(7, 9, 29, 0, 'Portugal');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comment`
+--
+
+CREATE TABLE `comment` (
+  `commentId` int(255) NOT NULL,
+  `postId` int(255) NOT NULL,
+  `userId` int(255) NOT NULL,
+  `comment` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `community`
+--
+
+CREATE TABLE `community` (
   `communityId` int(255) NOT NULL,
   `communityName` varchar(255) NOT NULL,
   `communityDescription` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `communities`
+-- Volcado de datos para la tabla `community`
 --
 
-INSERT INTO `communities` (`communityId`, `communityName`, `communityDescription`) VALUES
+INSERT INTO `community` (`communityId`, `communityName`, `communityDescription`) VALUES
 (1, 'Enfermería', 'Esta rama de la medicina se especializa en las necesidades básicas de la salud de una persona, de manera independiente a las funciones de un médico.'),
 (2, 'Biomedicina', 'Esta disciplina se define como el estudio de los rasgos biológicos de la medicina. Su campo de conocimiento y práctica es muy amplio, por ejemplo: los mecanismos moleculares, celulares, bioquímicos y/o genéticos. Estos estudios están encaminados a desarro'),
 (3, 'Odontología', 'Esta rama de la medicina se encarga exclusivamente de la salud bucal a través del diagnóstico, el tratamiento y la prevención de enfermedades de dientes, encías, tejido periodontal, etc.'),
@@ -48,40 +88,70 @@ INSERT INTO `communities` (`communityId`, `communityName`, `communityDescription
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `members`
+-- Estructura de tabla para la tabla `evaluation`
 --
 
-CREATE TABLE `members` (
-  `userId` int(255) NOT NULL,
-  `communityId` int(255) NOT NULL
+CREATE TABLE `evaluation` (
+  `evaluationId` int(255) NOT NULL,
+  `postId` int(255) NOT NULL,
+  `userId` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `members`
+-- Volcado de datos para la tabla `evaluation`
 --
 
-INSERT INTO `members` (`userId`, `communityId`) VALUES
-(1, 1),
-(1, 4),
-(1, 2),
-(1, 6);
+INSERT INTO `evaluation` (`evaluationId`, `postId`, `userId`) VALUES
+(8, 11, 1),
+(15, 10, 1),
+(17, 10, 4),
+(18, 24, 4),
+(19, 10, 9),
+(41, 24, 1),
+(43, 25, 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `moderators`
+-- Estructura de tabla para la tabla `member`
 --
 
-CREATE TABLE `moderators` (
+CREATE TABLE `member` (
+  `memberId` int(11) NOT NULL,
   `userId` int(255) NOT NULL,
   `communityId` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `moderators`
+-- Volcado de datos para la tabla `member`
 --
 
-INSERT INTO `moderators` (`userId`, `communityId`) VALUES
+INSERT INTO `member` (`memberId`, `userId`, `communityId`) VALUES
+(4, 1, 3),
+(5, 1, 4),
+(6, 1, 5),
+(7, 3, 6),
+(14, 1, 1),
+(16, 1, 6),
+(17, 4, 3),
+(18, 9, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `moderator`
+--
+
+CREATE TABLE `moderator` (
+  `userId` int(255) NOT NULL,
+  `communityId` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `moderator`
+--
+
+INSERT INTO `moderator` (`userId`, `communityId`) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
@@ -92,10 +162,10 @@ INSERT INTO `moderators` (`userId`, `communityId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `posts`
+-- Estructura de tabla para la tabla `post`
 --
 
-CREATE TABLE `posts` (
+CREATE TABLE `post` (
   `postId` int(255) NOT NULL,
   `communityId` int(255) NOT NULL,
   `userId` int(255) NOT NULL,
@@ -106,10 +176,10 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `posts`
+-- Volcado de datos para la tabla `post`
 --
 
-INSERT INTO `posts` (`postId`, `communityId`, `userId`, `postTitle`, `postDescription`, `creationDate`, `postEvaluation`) VALUES
+INSERT INTO `post` (`postId`, `communityId`, `userId`, `postTitle`, `postDescription`, `creationDate`, `postEvaluation`) VALUES
 (1, 6, 3, 'Tipos de cereales buenos para desayunar', 'Los cereales sin azúcar y con frutas. Si podéis usad leche de almendras.', '2022-03-08 00:02:54', 0),
 (2, 6, 3, 'Hablando de desayunos...', 'Quiero saber cuales la mejor fruta para el desayuno. Algún miembro de la comunidad tiene opciones interesantes.', '2022-03-09 12:48:52', 0),
 (3, 6, 6, 'Comida para veganos', 'Si eres de las personas que eligen una alimentación vegana, también puedes realizar una comida de forma saludable y variada. En Cocina Casera y Fácil son muchas las recetas que hemos preparado pensando en personas veganas. Por ello, aquí te dejo una selec', '2022-03-10 00:39:48', 0),
@@ -117,70 +187,100 @@ INSERT INTO `posts` (`postId`, `communityId`, `userId`, `postTitle`, `postDescri
 (5, 2, 4, 'Grado en Biomedicina', 'La biomedicina es la ciencia que combina conocimientos de biología y de medicina para investigar el funcionamiento y comportamiento del cuerpo humano desde un enfoque multidisciplinar.\r\n\r\nActualmente, nuestra sociedad demanda expertos en el ámbito de la salud que sean capaces de estudiar las bases moleculares del organismo para comprender qué ocurre cuando enferma y desarrollar nuevas técnicas para el diagnóstico y el tratamiento de las enfermedades.', '2022-03-10 01:22:05', 0),
 (7, 4, 2, 'Ojos rojos y llorosos', 'En general, los ojos rojos son causados por alergia, fatiga ocular, uso exagerado de lentes de contacto o infecciones oculares comunes, tales como conjuntivitis. No obstante, el enrojecimiento ocular algunas veces puede ser signo de un trastorno o enfermedad más grave en los ojos; la uveítis o el glaucoma, por ejemplo.', '2022-03-11 00:17:14', 0),
 (8, 4, 1, 'Ojos resecos', 'Los ojos secos son consecuencia del uso excesivo de sal en la dieta. Puedes poner esto a prueba, especialmente cuando te levantes en la noche para ir al baño. Si tus ojos están secos, toma unos 350 ml de agua. Fíjate si tus ojos se alivian inmediatamente. Si es así, entonces reduce la sal en tu dieta y mantente hidratado.', '2022-03-11 00:18:52', 0),
-(9, 2, 1, '¿Dónde y cómo estudiar la carrera sanitaria con más empleo?', 'Según el programa de estudios de la Universidad de Sevilla, el grado en Biomedicina combina los conocimientos de la Biología y de la Medicina. El estudiante adquiere conocimientos y desarrolla competencias orientadas al estudio de las bases biológicas de la salud y las enfermedades humanas. La aplicación de la investigación biológica básica en la Medicina es necesaria para profundizar en el conocimiento de la vida humana y de nuevas estrategias para el diagnóstico y el tratamiento de las enfermedades.', '2022-03-11 00:28:14', 0);
+(9, 2, 1, '¿Dónde y cómo estudiar la carrera sanitaria con más empleo?', 'Según el programa de estudios de la Universidad de Sevilla, el grado en Biomedicina combina los conocimientos de la Biología y de la Medicina. El estudiante adquiere conocimientos y desarrolla competencias orientadas al estudio de las bases biológicas de la salud y las enfermedades humanas. La aplicación de la investigación biológica básica en la Medicina es necesaria para profundizar en el conocimiento de la vida humana y de nuevas estrategias para el diagnóstico y el tratamiento de las enfermedades.', '2022-03-11 00:28:14', 0),
+(10, 3, 1, 'Me duele la boca', 'Me gustaría saber que tengo que ahcer para arreglar este dolor', '2022-03-11 18:26:03', 0),
+(11, 5, 1, 'El otro día via a un gato muerto', 'Este tipo de cosas me afectan mucho alquien me puede ayudar', '2022-03-11 19:35:37', 0),
+(24, 3, 9, 'Dolor de muelas', 'Se dice que el dolor de muelas es doloros.', '2022-04-08 01:50:18', 0),
+(25, 6, 5, 'La Creatina es buena', 'Es proteina pura mientras no tomes mucha azucar todo bien.', '2022-04-08 01:52:14', 0),
+(26, 4, 4, '¿Como hago para regular las gafas?', 'Se pueden comprar ciertas herramientas en la pagina web www.oftalmología.com', '2022-04-08 01:53:33', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `users`
+-- Estructura de tabla para la tabla `user`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `userId` int(255) NOT NULL,
   `userName` varchar(255) NOT NULL,
-  `userEmail` varchar(255) NOT NULL,
-  `userPassword` varchar(255) NOT NULL
+  `userPassword` varchar(255) NOT NULL,
+  `emailDomain` varchar(255) NOT NULL,
+  `emailUser` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `users`
+-- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `users` (`userId`, `userName`, `userEmail`, `userPassword`) VALUES
-(1, 'Abiam', 'abiam@gmail.com', '1234'),
-(2, 'Pedro', 'pedro@gmail.com', '1234'),
-(3, 'Alejandro', 'alejandro@gmail.com', '1234'),
-(4, 'Noah', 'noah@gmail.com', '1234'),
-(5, 'Javier', 'javier@gmail.com', '1234'),
-(6, 'Cintia', 'cintia@gmail.com', '1234'),
-(7, 'Sara', 'sara@gmail.com', '1234');
+INSERT INTO `user` (`userId`, `userName`, `userPassword`, `emailDomain`, `emailUser`) VALUES
+(1, 'Abiam', '1234', 'gmail.com', 'abm'),
+(2, 'Pedro', '1234', 'gmail.com', 'pdr'),
+(3, 'Alejandro', '1234', 'gmail.com', 'aljdr'),
+(4, 'Noah', '1234', 'gmail.com', 'nh'),
+(5, 'Javier', '1234', 'gmail.com', 'jvr'),
+(6, 'Cintia', '1234', 'gmail.com', 'cnt'),
+(9, 'hector', '1234', 'gmail.com', 'hct');
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `communities`
+-- Indices de la tabla `aditionaluserinfo`
 --
-ALTER TABLE `communities`
+ALTER TABLE `aditionaluserinfo`
+  ADD PRIMARY KEY (`userInfoId`),
+  ADD KEY `userId` (`userId`);
+
+--
+-- Indices de la tabla `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`commentId`),
+  ADD KEY `userId` (`userId`),
+  ADD KEY `postId` (`postId`);
+
+--
+-- Indices de la tabla `community`
+--
+ALTER TABLE `community`
   ADD PRIMARY KEY (`communityId`);
 
 --
--- Indices de la tabla `members`
+-- Indices de la tabla `evaluation`
 --
-ALTER TABLE `members`
+ALTER TABLE `evaluation`
+  ADD PRIMARY KEY (`evaluationId`),
+  ADD KEY `postId` (`postId`),
+  ADD KEY `userId` (`userId`);
+
+--
+-- Indices de la tabla `member`
+--
+ALTER TABLE `member`
+  ADD PRIMARY KEY (`memberId`),
   ADD KEY `userId` (`userId`),
   ADD KEY `communityId` (`communityId`);
 
 --
--- Indices de la tabla `moderators`
+-- Indices de la tabla `moderator`
 --
-ALTER TABLE `moderators`
+ALTER TABLE `moderator`
   ADD KEY `userId` (`userId`),
   ADD KEY `communityId` (`communityId`);
 
 --
--- Indices de la tabla `posts`
+-- Indices de la tabla `post`
 --
-ALTER TABLE `posts`
+ALTER TABLE `post`
   ADD PRIMARY KEY (`postId`),
   ADD KEY `userId` (`userId`),
   ADD KEY `communityId` (`communityId`);
 
 --
--- Indices de la tabla `users`
+-- Indices de la tabla `user`
 --
-ALTER TABLE `users`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`userId`);
 
 --
@@ -188,47 +288,91 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT de la tabla `communities`
+-- AUTO_INCREMENT de la tabla `aditionaluserinfo`
 --
-ALTER TABLE `communities`
+ALTER TABLE `aditionaluserinfo`
+  MODIFY `userInfoId` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `commentId` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `community`
+--
+ALTER TABLE `community`
   MODIFY `communityId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `posts`
+-- AUTO_INCREMENT de la tabla `evaluation`
 --
-ALTER TABLE `posts`
-  MODIFY `postId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `evaluation`
+  MODIFY `evaluationId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT de la tabla `users`
+-- AUTO_INCREMENT de la tabla `member`
 --
-ALTER TABLE `users`
-  MODIFY `userId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `member`
+  MODIFY `memberId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de la tabla `post`
+--
+ALTER TABLE `post`
+  MODIFY `postId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT de la tabla `user`
+--
+ALTER TABLE `user`
+  MODIFY `userId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `members`
+-- Filtros para la tabla `aditionaluserinfo`
 --
-ALTER TABLE `members`
-  ADD CONSTRAINT `members_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
-  ADD CONSTRAINT `members_ibfk_2` FOREIGN KEY (`communityId`) REFERENCES `communities` (`communityId`);
+ALTER TABLE `aditionaluserinfo`
+  ADD CONSTRAINT `aditionaluserinfo_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
 
 --
--- Filtros para la tabla `moderators`
+-- Filtros para la tabla `comment`
 --
-ALTER TABLE `moderators`
-  ADD CONSTRAINT `moderators_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
-  ADD CONSTRAINT `moderators_ibfk_2` FOREIGN KEY (`communityId`) REFERENCES `communities` (`communityId`);
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`);
 
 --
--- Filtros para la tabla `posts`
+-- Filtros para la tabla `evaluation`
 --
-ALTER TABLE `posts`
-  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`),
-  ADD CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`communityId`) REFERENCES `communities` (`communityId`);
+ALTER TABLE `evaluation`
+  ADD CONSTRAINT `evaluation_ibfk_1` FOREIGN KEY (`postId`) REFERENCES `post` (`postId`),
+  ADD CONSTRAINT `evaluation_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
+
+--
+-- Filtros para la tabla `member`
+--
+ALTER TABLE `member`
+  ADD CONSTRAINT `member_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
+  ADD CONSTRAINT `member_ibfk_2` FOREIGN KEY (`communityId`) REFERENCES `community` (`communityId`);
+
+--
+-- Filtros para la tabla `moderator`
+--
+ALTER TABLE `moderator`
+  ADD CONSTRAINT `moderator_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
+  ADD CONSTRAINT `moderator_ibfk_2` FOREIGN KEY (`communityId`) REFERENCES `community` (`communityId`);
+
+--
+-- Filtros para la tabla `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`),
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`communityId`) REFERENCES `community` (`communityId`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
