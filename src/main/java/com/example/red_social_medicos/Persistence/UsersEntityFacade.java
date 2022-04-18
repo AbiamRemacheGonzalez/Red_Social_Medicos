@@ -5,10 +5,12 @@ import com.example.red_social_medicos.Model.User;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class UsersEntityFacade extends AbstractFacade<User> {
 
+    @PersistenceContext
     private final EntityManager em = EntityManagerGenerator.getEntityManager("entities");
 
     @Override

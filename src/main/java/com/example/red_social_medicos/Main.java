@@ -12,16 +12,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String [] args) throws IOException {
-        PostsEntityFacade postsEntityFacade = new PostsEntityFacade();
-        Long max = postsEntityFacade.getCountOfPages(1,"");
-        for (int i = 1; i <= max; i++) {
-            System.out.println("---------------------Página "+i);
-            List<Post> searchPosts = postsEntityFacade.searchUserCommunitiesPostsOptimized(1,"",i);
-            for (Post post: searchPosts
-            ) {
-                System.out.println(post.getPostTitle());
-            }
-        }
+        LocalDateTime local = ParseFecha("2022-03-15 00:02:54");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(local.minusDays(5));
 
     }
     public static LocalDateTime ParseFecha(String fecha) {

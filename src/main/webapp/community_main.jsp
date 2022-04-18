@@ -13,6 +13,7 @@
 <% List<Long> postLikes = (List<Long>) session.getAttribute("postLikes");%>
 <% List<Boolean> postUserEvaluation = (List<Boolean>) session.getAttribute("postUserEvaluation");%>
 <% Boolean userIsMember = (Boolean) session.getAttribute("userIsMember");%>
+<% Boolean userIsModerator = (Boolean) session.getAttribute("userIsModerator");%>
 <html>
 <head>
     <title>Explore</title>
@@ -46,6 +47,9 @@
             out.println("<a href=\"add_post_page.jsp\" class=\""+clas+"\">Create Post</a>");
         }
         out.println("<a href=\"FrontControllerServlet?command="+command+"&communityId="+community.getCommunityId()+"\" class=\""+clas+"\">"+name+"</a><br><br><br>");
+        if(userIsModerator){
+            out.println("<a href=\"#\" class=\"leaveButton\">Moderator Options</a>");
+        }
     %>
 
     <%

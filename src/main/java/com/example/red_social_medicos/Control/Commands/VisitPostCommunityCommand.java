@@ -17,6 +17,7 @@ public class VisitPostCommunityCommand extends FrontCommand{
     private MembersEntityFacade membersEntityFacade = new MembersEntityFacade();
     private PostsEntityFacade postsEntityFacade = new PostsEntityFacade();
     private EvaluationsEntityFacade evaluationsEntityFacade = new EvaluationsEntityFacade();
+    private ModeratorsEntityFacade moderatorsEntityFacade = new ModeratorsEntityFacade();
 
     private UsersEntityFacade usersEntityFacade = new UsersEntityFacade();
     private final String first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\community_first_step.xsl";
@@ -24,11 +25,13 @@ public class VisitPostCommunityCommand extends FrontCommand{
     private final String post_first_step_xsl_file_path ="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_first_step.xsl";
     private final String post_second_step_xsl_file_path="C:\\Users\\equipo\\IdeaProjects\\Red_Social_Medicos\\src\\main\\webapp\\xsl_files\\post_second_step.xsl";
     private int communityId;
+    private User loadedUser;
 
 
     @Override
     public void process() throws ServletException, IOException, JAXBException {
         communityId = Integer.parseInt(request.getParameter("communityId"));
+        loadedUser = (User) session.getAttribute("loadedUser");
         getCommunityDetails();
         getPostCommunities();
         forward("/community_main.jsp");
@@ -36,7 +39,6 @@ public class VisitPostCommunityCommand extends FrontCommand{
 
     private void getPostCommunities() {
         response.setContentType("text/html");
-        User loadedUser = (User) session.getAttribute("loadedUser");
         List<Post> posts = postsEntityFacade.findByCommunityId(communityId);
         List<String> posts_html = getPostsHtmlTransformation(posts);
         List<Community> communitiesPosts = new ArrayList<>();
@@ -76,6 +78,7 @@ public class VisitPostCommunityCommand extends FrontCommand{
         Community community = communitiesEntityFacade.find(communityId);
         XSLTProcessor xsltProcessor = new XSLTProcessor(first_step_xsl_file_path,second_step_xsl_file_path);
         String community_html = xsltProcessor.getTransformation(community.toXML());
+        session.setAttribute("userIsModerator",moderatorsEntityFacade.isModeratorOfACommunity(loadedUser.getUserId(),communityId));
         session.setAttribute("community_html",community_html);
         session.setAttribute("community",community);
     }
