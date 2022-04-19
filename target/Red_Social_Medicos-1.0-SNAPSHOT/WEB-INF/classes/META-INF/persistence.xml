@@ -11,6 +11,8 @@
         <class>com.example.red_social_medicos.Model.Post</class>
         <class>com.example.red_social_medicos.Model.Evaluation</class>
         <class>com.example.red_social_medicos.Model.Aditionaluserinfo</class>
+        <class>com.example.red_social_medicos.Model.Comment</class>
+        <class>com.example.red_social_medicos.Model.Moderator</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.show_sql" value="true"/>

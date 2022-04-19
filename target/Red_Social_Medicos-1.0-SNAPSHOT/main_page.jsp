@@ -70,7 +70,7 @@
             out.println("<div class=\"postfoot\"><tr>\n" +
                     "   <td>\n" +
                     "       <form action=\"FrontControllerServlet\">\n" +
-                    "           <input type=\"hidden\" name=\"command\" value=\"CommentPostCommand\"></input>\n" +
+                    "           <input type=\"hidden\" name=\"command\" value=\"ShowCommentCommand\"></input>\n" +
                     "           <input type=\"hidden\" name=\"postId\" value='"+posts.get(i).getPostId()+"'></input>\n" +
                     "           <input type=\"submit\" class=\"commmentSubmit\" name=\"Comment\" value=\"Comment\"></input>\n" +
                     "       </form>\n" +
