@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-04-2022 a las 20:27:23
+-- Tiempo de generación: 19-04-2022 a las 03:22:31
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -58,8 +58,17 @@ CREATE TABLE `comment` (
   `commentId` int(255) NOT NULL,
   `postId` int(255) NOT NULL,
   `userId` int(255) NOT NULL,
-  `comment` longtext NOT NULL
+  `comment` longtext NOT NULL,
+  `creationDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `comment`
+--
+
+INSERT INTO `comment` (`commentId`, `postId`, `userId`, `comment`, `creationDate`) VALUES
+(1, 2, 1, 'Me ha gustado mucho este post.', '2022-04-18 21:43:08'),
+(2, 25, 1, 'Podemos editar texto', '2022-04-18 21:43:09');
 
 -- --------------------------------------------------------
 
@@ -108,7 +117,8 @@ INSERT INTO `evaluation` (`evaluationId`, `postId`, `userId`) VALUES
 (18, 24, 4),
 (19, 10, 9),
 (41, 24, 1),
-(43, 25, 1);
+(43, 25, 1),
+(45, 27, 1);
 
 -- --------------------------------------------------------
 
@@ -131,10 +141,10 @@ INSERT INTO `member` (`memberId`, `userId`, `communityId`) VALUES
 (5, 1, 4),
 (6, 1, 5),
 (7, 3, 6),
-(14, 1, 1),
 (16, 1, 6),
 (17, 4, 3),
-(18, 9, 3);
+(18, 9, 3),
+(19, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -143,6 +153,7 @@ INSERT INTO `member` (`memberId`, `userId`, `communityId`) VALUES
 --
 
 CREATE TABLE `moderator` (
+  `moderatoId` int(11) NOT NULL,
   `userId` int(255) NOT NULL,
   `communityId` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -151,13 +162,13 @@ CREATE TABLE `moderator` (
 -- Volcado de datos para la tabla `moderator`
 --
 
-INSERT INTO `moderator` (`userId`, `communityId`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5),
-(1, 6);
+INSERT INTO `moderator` (`moderatoId`, `userId`, `communityId`) VALUES
+(1, 1, 6),
+(2, 1, 1),
+(3, 1, 2),
+(4, 1, 3),
+(5, 1, 4),
+(6, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -192,7 +203,8 @@ INSERT INTO `post` (`postId`, `communityId`, `userId`, `postTitle`, `postDescrip
 (11, 5, 1, 'El otro día via a un gato muerto', 'Este tipo de cosas me afectan mucho alquien me puede ayudar', '2022-03-11 19:35:37', 0),
 (24, 3, 9, 'Dolor de muelas', 'Se dice que el dolor de muelas es doloros.', '2022-04-08 01:50:18', 0),
 (25, 6, 5, 'La Creatina es buena', 'Es proteina pura mientras no tomes mucha azucar todo bien.', '2022-04-08 01:52:14', 0),
-(26, 4, 4, '¿Como hago para regular las gafas?', 'Se pueden comprar ciertas herramientas en la pagina web www.oftalmología.com', '2022-04-08 01:53:33', 0);
+(26, 4, 4, '¿Como hago para regular las gafas?', 'Se pueden comprar ciertas herramientas en la pagina web www.oftalmología.com', '2022-04-08 01:53:33', 0),
+(27, 1, 1, 'La higiene en los quirofanos', 'Quiero que me comenteis que opinais de los métodos de higiene actuales.', '2022-04-19 00:46:29', 0);
 
 -- --------------------------------------------------------
 
@@ -266,6 +278,7 @@ ALTER TABLE `member`
 -- Indices de la tabla `moderator`
 --
 ALTER TABLE `moderator`
+  ADD PRIMARY KEY (`moderatoId`),
   ADD KEY `userId` (`userId`),
   ADD KEY `communityId` (`communityId`);
 
@@ -297,7 +310,7 @@ ALTER TABLE `aditionaluserinfo`
 -- AUTO_INCREMENT de la tabla `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `commentId` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `commentId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `community`
@@ -309,19 +322,25 @@ ALTER TABLE `community`
 -- AUTO_INCREMENT de la tabla `evaluation`
 --
 ALTER TABLE `evaluation`
-  MODIFY `evaluationId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `evaluationId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `memberId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `moderator`
+--
+ALTER TABLE `moderator`
+  MODIFY `moderatoId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `post`
 --
 ALTER TABLE `post`
-  MODIFY `postId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `postId` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
