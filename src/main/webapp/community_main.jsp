@@ -46,9 +46,9 @@
             clas = "leaveButton";
             out.println("<a href=\"add_post_page.jsp\" class=\""+clas+"\">Create Post</a>");
         }
-        out.println("<a href=\"FrontControllerServlet?command="+command+"&communityId="+community.getCommunityId()+"\" class=\""+clas+"\">"+name+"</a><br><br><br>");
+        out.println("<a href=\"FrontControllerServlet?command="+command+"&communityId="+community.getCommunityId()+"\" class=\""+clas+"\">"+name+"</a>");
         if(userIsModerator){
-            out.println("<a href=\"#\" class=\"leaveButton\">Moderator Options</a>");
+            out.println("<a href=\"#\" class=\""+clas+"\">ModOptions</a><br><br><br>");
         }
     %>
 
@@ -73,7 +73,7 @@
             out.println("<div class=\"postfoot\"><tr>\n" +
                     "   <td>\n" +
                     "       <form action=\"FrontControllerServlet\">\n" +
-                    "           <input type=\"hidden\" name=\"command\" value=\"CommentPostCommand\"></input>\n" +
+                    "           <input type=\"hidden\" name=\"command\" value=\"ShowCommentCommand\"></input>\n" +
                     "           <input type=\"hidden\" name=\"postId\" value='"+posts.get(i).getPostId()+"'></input>\n" +
                     "           <input type=\"submit\" class=\"commmentSubmit\" name=\"Comment\" value=\"Comment\"></input>\n" +
                     "       </form>\n" +

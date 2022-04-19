@@ -1,6 +1,8 @@
 package com.example.red_social_medicos;
 
+import com.example.red_social_medicos.Model.Comment;
 import com.example.red_social_medicos.Model.Post;
+import com.example.red_social_medicos.Persistence.CommentsEntityFacade;
 import com.example.red_social_medicos.Persistence.MembersEntityFacade;
 import com.example.red_social_medicos.Persistence.PostsEntityFacade;
 
@@ -15,6 +17,9 @@ public class Main {
         LocalDateTime local = ParseFecha("2022-03-15 00:02:54");
         LocalDateTime now = LocalDateTime.now();
         System.out.println(local.minusDays(5));
+        CommentsEntityFacade commentsEntityFacade = new CommentsEntityFacade();
+        Comment comment = (Comment) commentsEntityFacade.find(1);
+        commentsEntityFacade.updateComment(comment, "Cambiando comentario");
 
     }
     public static LocalDateTime ParseFecha(String fecha) {
